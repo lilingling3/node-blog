@@ -1,0 +1,23 @@
+{
+  "name": "node-blog",
+  "version": "1.0.0",
+  "description": "blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilingling3/node-blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lilingling3/node-blog/issues"
+  },
+  "homepage": "https://github.com/lilingling3/node-blog#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "swig": "^1.4.2"
+  }
+}
