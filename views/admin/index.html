@@ -1,0 +1,12 @@
+<!--
+使用swig 模板继承
+-->
+
+{% extends 'layout.html' %}
+<!--重新该模块-->
+{% block main %}
+    <div class="jumbotron">
+        <h1>Hello, {{userinfo.username}}!</h1>
+        <p>欢迎进入我的博客管理系统</p>
+    </div>
+{% endblock %}
