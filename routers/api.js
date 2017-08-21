@@ -1,5 +1,6 @@
 var express = require('express');
 var User = require('../models/Users');
+var Content = require('../models/Content');
 var router = express.Router();
 // 统一返回格式
 var responseData;
@@ -51,7 +52,7 @@ router.post('/user/register',function (req,res,next) {
             responseData.code = 4;
             responseData.message = '用户名已经被注册了';
             res.json(responseData);
-            return;
+            return ;
         }
         // 保存用户信息 保存数据库
         var user = new User({
@@ -104,10 +105,40 @@ router.post('/user/login',function (req,res) {
     })
 
 });
-
+// 退出
 router.get('/user/logout',function (req,res) {
     console.log('lllll');
     req.cookies.set('userinfo',null);
     res.json(responseData);
+});
+
+// 留言提交
+router.post('/comment/post',function (req,res) {
+    var contentId = req.body.contentid;
+    var postData = {
+        username:req.userinfo.username,
+        postTime:new Date(),
+        content:req.body.content,
+    };
+    Content.findOne({
+        _id:contentId
+    }).then(function (content) {
+        content.comments.push(postData);
+        return content.save();
+    }).then(function (newContent) {
+        responseData.message = '评论成功';
+        responseData.data = newContent;
+        res.json(responseData);
+    })
+});
+// 获取指定文章 的所有评论
+router.get('/comment',function (req,res) {
+    var contentId = req.query.contentid;
+    Content.findOne({
+        _id:contentId
+    }).then(function (content) {
+        responseData.data = content.comments;
+        res.json(responseData);
+    })
 });
 module.exports = router;
