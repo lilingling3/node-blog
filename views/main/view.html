@@ -1,0 +1,53 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+    <div class="list">
+        <h1>{{content.title}}</h1>
+        <p>
+            作者：<span>{{content.user.username}}</span>
+            时间：<span>{{content.addTime | date('Y年m月d日 H:i:s', -8*60)}}</span>
+            阅读量：<span>{{content.views}}</span>
+            评论：<span>{{content.comments.length}}</span>
+        </p>
+        <p style="color: red"> 内容：{{content.content}}</p>
+    </div>
+
+    <div class="message" style="margin-left: 20px">
+        <h3 class="messageFlex"><span>评论</span> <span>一共有<span id="commentCount"></span>条评论</span></h3>
+        {% if userinfo._id %}
+            <p>dd</p>
+            <p class="submitContent">
+                <textarea id="messageContent"></textarea>
+                <input type="hidden" id="contentId" value="{{content.id}}">
+                <button id="messageBtn">提交</button>
+            </p>
+        {% else %}
+            <p>你还没登录，请先登录</p>
+        {% endif %}
+        <div class="messageList"></div>
+        <!--<div class="messageList">-->
+            <!--<p>还没有评论</p>-->
+        <!--</div>-->
+        <!--<div class="messageList">-->
+            <!--<div class="messageBox">-->
+                <!--<p class="comment">-->
+                    <!--<span class="fl">admin</span>-->
+                    <!--<span class="fr">time</span>-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="pager">
+            <ul class="clearfix">
+                <li class="pre">
+                    <a>上一页</a>
+                </li>
+                <li></li>
+                <li class="next">
+                    <a>下一页</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+<script src="/public/js/comment.js"></script>
+{% endblock%}
